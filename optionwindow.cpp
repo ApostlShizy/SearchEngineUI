@@ -100,8 +100,7 @@ OptionWindow::OptionWindow(QWidget *parent)
         QString loadedPresetPath = QFileDialog::getOpenFileName(nullptr,"Load OptionsPreset","/opt/", "json file (*.json)");
         if(!loadedPresetPath.isEmpty()) {
 
-            ui->requestsTextBrowser->clear();
-            ui->docsPathsTextBrowser->clear();
+            ui->requestsTextBrowser->clear();            
             ui->answerTextBrowser->clear();
 
             ui->currentPresetLabel->setText(loadedPresetPath);
@@ -111,13 +110,7 @@ OptionWindow::OptionWindow(QWidget *parent)
                 updateRequestsTextBrowser(currentRequests);
             }
 
-            size_t i = 0;
-
-            for(auto & currentDocs : srcEngine.getVectorOfDocsPath()){
-                QString temp = "doc_id: " + QString::number(i) + "  " + currentDocs.c_str();
-                ui->docsPathsTextBrowser->append(temp);
-                ++i;
-            }
+            updateDocsTextBrowser();
         }
     });
 
@@ -278,10 +271,10 @@ OptionWindow::OptionWindow(QWidget *parent)
 
         for(auto & current : loadedDocsPaths) {
             srcEngine.addDocs(current.toStdString());
-            QString temp = "doc_id: " + QString::number(srcEngine.getVectorOfDocsPath().size() - 1) + "  " + current;
-            ui->docsPathsTextBrowser->append(temp);
-            ui->docsPathsTextBrowser->append(QString(100,'-'));
         }
+
+        updateDocsTextBrowser();
+
     });
 
     connect(ui->docsPathsSearchLineEdit,&QLineEdit::returnPressed,[this](){
@@ -573,6 +566,21 @@ void OptionWindow::updateRequestsTextBrowser(const std::pair<size_t,std::vector<
     }
     ui->requestsTextBrowser->append(temp);
     ui->requestsTextBrowser->append(QString(100,'-'));
+}
+
+void OptionWindow::updateDocsTextBrowser() {
+
+    ui->docsPathsTextBrowser->clear();
+
+    int i = 0 ;
+
+    for(auto & current : srcEngine.getVectorOfDocsPath()) {
+        QString temp = "doc_id: " + QString::number(i) + "  " + current.c_str();
+        ui->docsPathsTextBrowser->append(temp);
+        ui->docsPathsTextBrowser->append(QString(100,'-'));
+        ++i;
+    }
+
 }
 
 OptionWindow::~OptionWindow() {

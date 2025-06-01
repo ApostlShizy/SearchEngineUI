@@ -28,6 +28,7 @@ private:
 
     void sortAnswer();
     void updateRequestsTextBrowser(const std::pair<size_t,std::vector<std::string>> & currentRequests);
+    void updateDocsTextBrowser();
 
 signals :
 
