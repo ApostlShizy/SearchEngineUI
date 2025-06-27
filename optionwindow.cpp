@@ -62,6 +62,17 @@ OptionWindow::OptionWindow(QWidget *parent)
         ui->rqstPathLineEdit->setStyleSheet(setGreen());
     });
 
+    connect(ui->maxRespLineEdit,&QLineEdit::returnPressed,[this](){
+        if(ui->maxRespLineEdit->text().toInt() > 0){
+            ui->maxRespLineEdit->setStyleSheet(setGreen());
+            srcEngine.setMaxResponse(ui->maxRespLineEdit->text().toInt());
+        }
+    });
+
+    connect(ui->maxRespLineEdit,&QLineEdit::textChanged,[this](){
+        ui->maxRespLineEdit->setStyleSheet(setBlack());
+    });
+
 
     /* ----------------------------------------------------- */
     /* ↓↓↓ Файловый диалог для пути сохранений ↓↓↓ */

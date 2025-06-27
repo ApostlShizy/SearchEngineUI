@@ -45,6 +45,7 @@ public:
     void setSaveRequests(bool sate);
     void setPathToAnswer(std::string path);
     void setPathToToRequests(std::string path);
+    void setMaxResponse(int inMaxResponse);
 
     void loadOptions(std::string inPathToOptions);
     void saveOptions(std::string inPathToOptions);

@@ -33,17 +33,16 @@ public:
     * configPath путь к файлу конфигурации
     */
 
-    void setConging(std::vector<std::string> & docsPath,
-                    std::string confingPath = "config.json",
+    void setConfigPath(std::vector<std::string> & docsPath,
+                    std::string configPath = "config.json",
                     std::string requestsPath = "requests.json",
                     std::string answerPath = "answer.json",
                     size_t maxResponses = 5) {
 
-
-        std::cerr << confingPath;
+        std::cerr << configPath;
 
         nlohmann::json optionsJson;
-        std::ofstream outConfigFile(confingPath);
+        std::ofstream outConfigFile(configPath);
 
         optionsJson["config"]["name"] = "SearchEngineUi";
         optionsJson["config"]["version"] = "0.2";
@@ -59,7 +58,10 @@ public:
     }
 
 
-    int getConfig(std::vector<std::string>& filePath,std::string & requestsPath,std::string & answerPath,const std::string configPath = "config.json") {
+    int getConfig(std::vector<std::string>& filePath,
+                  std::string & requestsPath,
+                  std::string & answerPath,
+                  const std::string configPath = "config.json") {
 
         std::ifstream configFile(configPath);
         nlohmann::json config_dir;
@@ -89,15 +91,9 @@ public:
             return 11;
         }
 
-
         if(config_dir.count("requestsFile") == 0) {
             std::cerr << "not found requests.json";
             return 13;
-        }
-
-        if(config_dir.count("answerFile") == 0) {
-            std::cerr << "not found answer.json";
-            return 14;
         }
 
         configFile.close();
@@ -118,7 +114,11 @@ public:
             requestsPath = iter.value();
         }
 
-        {
+        if(config_dir.count("answerFile") == 0) {
+            std::cerr << "not found answer.json";
+            answerPath = "answer.json";
+        }
+        else{
             auto iter = config_dir.find("answerFile");
             answerPath = iter.value();
         }
@@ -127,7 +127,7 @@ public:
 
         if (maxResponse <= 0) {
             std::cerr << "\nNumber of responce <= 0" << std::endl;
-            return 12;
+            maxResponse = 5;
         }
 
         filePath = listOfFiles;

@@ -98,6 +98,10 @@ void SearchEngine::setPathToToRequests(std::string path) {
     pathToRequests = path;
 }
 
+void SearchEngine::setMaxResponse(int inMaxResponse) {
+    maxResponse = inMaxResponse;
+}
+
 void SearchEngine::setPathToAnswer(std::string path) {
     pathToAnswer = path;
 }
@@ -156,7 +160,7 @@ void SearchEngine::loadOptions(std::string inPathToOptions) {
 void SearchEngine::saveOptions(std::string inPathToOptions) {
     pathToOptions.clear();
     pathToOptions = inPathToOptions;
-    converterJsonObj.setConging(vectorOfDocsPath,inPathToOptions,pathToRequests,pathToAnswer,maxResponse);
+    converterJsonObj.setConfigPath(vectorOfDocsPath,inPathToOptions,pathToRequests,pathToAnswer,maxResponse);
 }
 
 /* -------------------------------------- ↑↑↑ Config ↑↑↑ -------------------------------------------- */
