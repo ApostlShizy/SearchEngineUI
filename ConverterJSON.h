@@ -225,10 +225,10 @@ public:
 
                 validityJson["answers"][requestNumber]["result"] = true;
 
-                for (auto &currentRelative : currentAnswer) {
+                for (const auto &[doc_id,rank] : currentAnswer) {
 
-                    validityJson["answers"][requestNumber]["relevance"][j]["doc_id"] = currentRelative.doc_id;
-                    validityJson["answers"][requestNumber]["relevance"][j]["rank"] = currentRelative.rank;
+                    validityJson["answers"][requestNumber]["relevance"][j]["doc_id"] = doc_id;
+                    validityJson["answers"][requestNumber]["relevance"][j]["rank"] = rank;
                     ++j;
                 }
             }

@@ -127,6 +127,7 @@ OptionWindow::OptionWindow(QWidget *parent)
 
     /* ↑↑↑ Файловый диалог для пресета ↑↑↑ */
     /* ----------------------------------------------------- */
+    /* -------------------------------------- ↓↓↓ Вкладка Options конструктор ↓↓↓ -------------------------------------- */
 
     connect(ui->saveAnswCheckBox,&QCheckBox::stateChanged,[this](){
         if(ui->saveAnswCheckBox->checkState() == Qt::CheckState::Checked) {

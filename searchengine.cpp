@@ -227,9 +227,7 @@ void SearchEngine::alterListOfRequests(std::string newRequestsStr) {
         copy[i] = ' ';
     }
 
-    int index = std::stoi(numStr);
-
-    if(listOfRequests.count(index) != 0){
+    if(int index = std::stoi(numStr); listOfRequests.count(index) != 0){
         std::vector<std::string> tempVec = breakRequestsStr(copy);
         listOfRequests[index] = tempVec;
     }
@@ -241,9 +239,10 @@ void SearchEngine::addDocs(std::string path){
 }
 
 bool SearchEngine::addOneDock(std::string path) {
-    std::ifstream inFile(path);
-    if(inFile.is_open()){
+
+    if(std::ifstream inFile(path); inFile.is_open()){
         vectorOfDocsPath.push_back(path);
+        inFile.close();
         return true;
     }
     return false;
